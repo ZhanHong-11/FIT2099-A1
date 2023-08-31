@@ -1,5 +1,10 @@
 package game;
 
+import game.display.FancyMessage;
+import game.grounds.Dirt;
+import game.grounds.Floor;
+import game.grounds.Puddle;
+import game.grounds.Wall;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,8 +57,9 @@ public class Application {
         }
 
         gameMap.at(23, 10).addActor(new WanderingUndead());
+        gameMap.at(45, 11).addItem(new Broadsword());
 
-        Player player = new Player("The Abstracted One", '@', 150);
+        Player player = new Player("The Abstracted One", '@', 150, 200);
         world.addPlayer(player, gameMap.at(29, 5));
 
         world.run();
