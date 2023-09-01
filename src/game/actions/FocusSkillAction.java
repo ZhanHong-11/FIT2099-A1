@@ -29,6 +29,6 @@ public class FocusSkillAction extends Action {
 
   @Override
   public String menuDescription(Actor actor) {
-    return actor + " activates the Broadsword skill.";
+    return actor + " activates skill of the broadsword.";
   }
 }

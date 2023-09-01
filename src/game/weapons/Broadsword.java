@@ -7,35 +7,37 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.AttackAction;
 import game.actions.FocusSkillAction;
+import game.skills.FocusSkill;
+import game.skills.Skill;
 
 public class Broadsword extends WeaponItem {
-  private final int skillStaminaPercent = 20;
-  private final int skillDamageMultiplierPercent = 10;
-  private int skillDuration;
+  private final Skill skill;
+  private int skillCountdown;
   private final int defaultHitRate;
 
   public Broadsword() {
     super("Broadsword", '1', 110, "slashes", 80);
     this.defaultHitRate = 80;
+    this.skill = new FocusSkill();
   }
 
   public int activateSkill() {
-    this.skillDuration = 5;
-    updateHitRate(90);
-    increaseDamageMultiplier(this.skillDamageMultiplierPercent / 100f);
-    return this.skillStaminaPercent;
+    this.skillCountdown = skill.getSkillDuration();
+    updateHitRate(skill.getHitRate());
+    increaseDamageMultiplier(skill.getSkillDamageMultiplierPercent() / 100f);
+    return skill.getSkillStaminaPercent();
   }
 
   @Override
   public void tick(Location currentLocation, Actor actor) {
-    if (this.skillDuration > 0){
-      this.skillDuration--;
+    if (this.skillCountdown > 0){
+      this.skillCountdown--;
     }
   }
 
   @Override
   public int damage() {
-    if (skillDuration == 0){
+    if (skillCountdown == 0){
       updateDamageMultiplier(1.0f);
     }
     return super.damage();
