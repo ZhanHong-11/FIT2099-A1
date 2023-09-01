@@ -58,7 +58,7 @@ public class Application {
         }
 
         gameMap.at(23, 10).addActor(new WanderingUndead());
-        gameMap.at(45, 11).addItem(new Broadsword());
+        gameMap.at(28, 6).addItem(new Broadsword());
 
         Player player = new Player("The Abstracted One", '@', 150, 200);
         world.addPlayer(player, gameMap.at(29, 5));
