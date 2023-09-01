@@ -4,6 +4,7 @@ import game.display.FancyMessage;
 import game.grounds.Dirt;
 import game.grounds.Floor;
 import game.grounds.Puddle;
+import game.grounds.Void;
 import game.grounds.Wall;
 import game.weapons.Broadsword;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class Application {
         World world = new World(new Display());
 
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(),
-                new Wall(), new Floor(), new Puddle());
+                new Wall(), new Floor(), new Puddle(), new Void());
 
         List<String> map = Arrays.asList(
                 "...........................................................",
@@ -39,7 +40,7 @@ public class Application {
                 "..........................#_____#..........................",
                 "........~~................#_____#..........................",
                 ".........~~~..............###_###..........................",
-                "...~~~~~~~~................................................",
+                "...~~~~~~~~...............++...............................",
                 "....~~~~~.................................###..##..........",
                 "~~~~~~~...................................#___..#..........",
                 "~~~~~~....................................#..___#..........",
