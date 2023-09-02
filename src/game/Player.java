@@ -38,8 +38,7 @@ public class Player extends Actor {
         if (lastAction.getNextAction() != null)
             return lastAction.getNextAction();
 
-        int staminaRecovery = Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) / 100f);
-        this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaRecovery);
+        tick();
 
         // return/print the console menu
         Menu menu = new Menu(actions);
@@ -49,6 +48,11 @@ public class Player extends Actor {
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(15, "strikes", 80);
+    }
+
+    private void tick(){
+        int staminaRecovery = Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) / 100f);
+        this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaRecovery);
     }
 
     @Override
