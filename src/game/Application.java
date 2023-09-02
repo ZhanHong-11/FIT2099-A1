@@ -1,8 +1,11 @@
 package game;
 
+import game.actors.Player;
+import game.actors.enemies.WanderingUndead;
 import game.display.FancyMessage;
 import game.grounds.Dirt;
 import game.grounds.Floor;
+import game.grounds.LockedGate;
 import game.grounds.Puddle;
 import game.grounds.Void;
 import game.grounds.Wall;
@@ -29,12 +32,12 @@ public class Application {
         World world = new World(new Display());
 
         FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(),
-                new Wall(), new Floor(), new Puddle(), new Void());
+                new Wall(), new Floor(), new Puddle(), new Void(), new LockedGate());
 
         List<String> map = Arrays.asList(
                 "...........................................................",
                 "...#######.................................................",
-                "...#__.....................................................",
+                "...#__=....................................................",
                 "...#..___#.................................................",
                 "...###.###................#######..........................",
                 "..........................#_____#..........................",
