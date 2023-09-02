@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,9 @@ public class WanderingUndead extends Actor {
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
         this.behaviours.put(999, new WanderBehaviour());
+        this.behaviours.put(1, new AttackBehaviour());
+        this.addCapability(Ability.FLOAT);
+        this.addCapability(Status.DANGER);
     }
 
     /**
@@ -56,4 +60,8 @@ public class WanderingUndead extends Actor {
         return actions;
     }
 
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        return new IntrinsicWeapon(30, "smacked", 50);
+    }
 }
