@@ -3,7 +3,7 @@ package game.actors.enemies;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.Ability;
+import game.capabilities.Ability;
 import game.items.HealingVial;
 import game.items.RefreshingFlask;
 import java.util.Random;
