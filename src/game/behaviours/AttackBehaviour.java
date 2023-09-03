@@ -20,14 +20,10 @@ public class AttackBehaviour implements Behaviour {
 
       for (Exit exit: map.locationOf(actor).getExits()){
         Location destination = exit.getDestination();
-        if (findAttackAction(destination) != null){
-          actions.add(findAttackAction(destination));
-        }
-        //Detects one block away
-        for (Exit exit1: destination.getExits()){
-          Location destination1 = exit1.getDestination();
-          if (findAttackAction(destination1) != null){
-            actions.add(findAttackAction(destination1));
+        if (destination.containsAnActor()){
+          Actor target = destination.getActor();
+          if (target.hasCapability(Status.HOSTILE_TO_ENEMY)){
+            actions.add(new AttackAction(target, destination.toString()));
           }
         }
       }
@@ -38,17 +34,6 @@ public class AttackBehaviour implements Behaviour {
     else {
       return null;
     }
-
   }
 
-  private AttackAction findAttackAction(Location destination) {
-      if (destination.containsAnActor()) {
-        Actor target = destination.getActor();
-        if (target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-          return new AttackAction(target, destination.toString());
-        }
-      }
-
-    return null;
-  }
 }
