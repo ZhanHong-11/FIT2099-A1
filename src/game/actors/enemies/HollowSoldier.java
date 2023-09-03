@@ -5,7 +5,6 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Ability;
 import game.items.HealingVial;
-import game.items.Key;
 import game.items.RefreshingFlask;
 import java.util.Random;
 
@@ -14,7 +13,7 @@ public class HollowSoldier extends Enemy{
 
   public HollowSoldier() {
     super("Hollow Soldier", '&', 200);
-    this.addCapability(Ability.FLOAT);
+    this.addCapability(Ability.IMMUNE_TO_VOID);
   }
 
   @Override

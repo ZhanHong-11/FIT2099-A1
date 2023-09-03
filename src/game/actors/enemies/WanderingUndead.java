@@ -14,7 +14,7 @@ public class WanderingUndead extends Enemy{
 
     public WanderingUndead() {
         super("Wandering Undead", 't', 100);
-        this.addCapability(Ability.FLOAT);
+        this.addCapability(Ability.IMMUNE_TO_VOID);
     }
 
     @Override

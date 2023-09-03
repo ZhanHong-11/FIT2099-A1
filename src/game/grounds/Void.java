@@ -17,7 +17,7 @@ public class Void extends Ground {
   public void tick(Location location) {
     if (location.containsAnActor()){
       Actor actor = location.getActor();
-      if (!actor.hasCapability(Ability.FLOAT)){
+      if (!actor.hasCapability(Ability.IMMUNE_TO_VOID)){
         String deadmsg = actor.unconscious(location.map());
         display.println(deadmsg);
       }
