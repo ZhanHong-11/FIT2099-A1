@@ -11,6 +11,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Status;
+import game.display.FancyMessage;
 
 /**
  * Class representing the Player.
@@ -54,6 +55,18 @@ public class Player extends Actor {
     private void tick(){
         int staminaRecovery = Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) / 100f);
         this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE, staminaRecovery);
+    }
+
+    @Override
+    public String unconscious(Actor actor, GameMap map) {
+        map.removeActor(this);
+        return "\n" + FancyMessage.YOU_DIED + "\n" + this + " met their demise in the hand of " + actor;
+    }
+
+    @Override
+    public String unconscious(GameMap map) {
+        map.removeActor(this);
+        return "\n" + FancyMessage.YOU_DIED + "\n" + this + " ceased to exist.";
     }
 
     @Override
