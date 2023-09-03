@@ -16,7 +16,9 @@ public class Graveyard extends Ground {
   public void tick(Location location) {
     int num = random.nextInt(4);
     if (num == 0){
-      location.addActor(new WanderingUndead());
+      try {
+        location.addActor(new WanderingUndead());
+      } catch (IllegalArgumentException e){}
     }
   }
 }
