@@ -43,6 +43,7 @@ public class Player extends Actor {
         tick();
 
         // return/print the console menu
+        display.println(getPlayerAttribute());
         Menu menu = new Menu(actions);
         return menu.showMenu(this, display);
     }
@@ -77,5 +78,15 @@ public class Player extends Actor {
             this.getAttribute(BaseActorAttributes.STAMINA) + "/" +
             this.getAttributeMaximum(BaseActorAttributes.STAMINA) +
             ")";
+    }
+
+    public String getPlayerAttribute(){
+        return this.name + "\n" +
+            "HP: " +
+            this.getAttribute(BaseActorAttributes.HEALTH) + "/" +
+            this.getAttributeMaximum(BaseActorAttributes.HEALTH) + "\n" +
+            "Stamina: " +
+            this.getAttribute(BaseActorAttributes.STAMINA) + "/" +
+            this.getAttributeMaximum(BaseActorAttributes.STAMINA);
     }
 }
