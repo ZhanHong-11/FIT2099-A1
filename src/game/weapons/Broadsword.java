@@ -4,30 +4,19 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.PickUpAction;
 import edu.monash.fit2099.engine.positions.Location;
-import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actions.AttackAction;
-import game.actions.FocusSkillAction;
 import game.skills.FocusSkill;
-import game.skills.Skill;
 
 /**
- * A subclass of WeaponItem that represents a broadsword. A broadsword is a powerful weapon that can
- * slash enemies with high damage. It also has a special skill that can increase its damage and hit
- * rate for a short duration.
+ * A subclass of SkillWeapon that represents a broadsword that have skill. A broadsword is a
+ * powerful weapon that can slash enemies with high damage. It also has a special skill that can
+ * increase its damage and hit rate for a short duration.
  *
  * @author Soo Zhan Hong
- * @see WeaponItem
+ * @see SkillWeapon
  */
-public class Broadsword extends WeaponItem {
+public class Broadsword extends SkillWeapon {
 
-  /**
-   * The skill associated with the broadsword
-   */
-  private final Skill skill;
-  /**
-   * The time left for the skill to be activating
-   */
-  private int skillCountdown;
   /**
    * The default hit rate of the broadsword
    */
@@ -37,9 +26,8 @@ public class Broadsword extends WeaponItem {
    * Constructs a new broadsword with the default attributes and skill.
    */
   public Broadsword() {
-    super("Broadsword", '1', 110, "slashes", 80);
+    super("Broadsword", '1', 110, "slashes", 80, new FocusSkill());
     this.defaultHitRate = 80;
-    this.skill = new FocusSkill();
   }
 
   /**
@@ -47,39 +35,27 @@ public class Broadsword extends WeaponItem {
    *
    * @return The percentage of stamina required to use the skill
    */
+  @Override
   public int activateSkill() {
-    this.skillCountdown = skill.getSkillDuration();
-    updateHitRate(skill.getHitRate());
-    increaseDamageMultiplier(skill.getSkillDamageMultiplierPercent() / 100f);
-    return skill.getSkillStaminaPercent();
+    updateHitRate(getSkill().getHitRate());
+    increaseDamageMultiplier(getSkill().getSkillDamageMultiplierPercent() / 100f);
+    return super.activateSkill();
   }
 
   /**
    * Skill should only last for some turns. Decrement the number of turn left for the activated
-   * skill
+   * skill. When skill duration is finished, update the damage multiplier back to the default
+   * value.
    *
    * @param currentLocation The location of the actor carrying this weapon.
    * @param actor           The actor carrying this weapon.
    */
   @Override
   public void tick(Location currentLocation, Actor actor) {
-    if (this.skillCountdown > 0) {
-      this.skillCountdown--;
-    }
-  }
-
-  /**
-   * Accessor for damage done by this weapon. Resets the damage multiplier to 1.0 if the skill
-   * duration is finish.
-   *
-   * @return the damage
-   */
-  @Override
-  public int damage() {
-    if (skillCountdown == 0) {
+    super.tick(currentLocation, actor);
+    if (getSkillCountdown() == 0) {
       updateDamageMultiplier(1.0f);
     }
-    return super.damage();
   }
 
   /**
@@ -92,20 +68,6 @@ public class Broadsword extends WeaponItem {
   public PickUpAction getPickUpAction(Actor actor) {
     updateHitRate(this.defaultHitRate);
     return super.getPickUpAction(actor);
-  }
-
-  /**
-   * Returns an ActionList that contains a FocusSkillAction that allows an actor to activate the
-   * skill of the broadsword.
-   *
-   * @param owner the actor that owns the weapon
-   * @return an unmodifiable list of Actions
-   */
-  @Override
-  public ActionList allowableActions(Actor owner) {
-    ActionList actions = new ActionList();
-    actions.add(new FocusSkillAction(owner, this));
-    return actions;
   }
 
   /**

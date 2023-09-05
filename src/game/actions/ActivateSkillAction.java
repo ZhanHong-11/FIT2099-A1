@@ -5,40 +5,38 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.weapons.Broadsword;
+import game.weapons.SkillWeapon;
 
 /**
- * A subclass of Action that represents a focus skill action. A focus skill action is an action that
- * allows an actor to activate the skill of a broadsword. The skill increases the damage and hit
- * rate of the broadsword for a short duration, but costs some stamina.
+ * A subclass of Action that represents activating a skill action. Activate skill action is an
+ * action that allows an actor to activate the skill of a skill weapon.
  *
  * @see Action
- * @see Broadsword
  */
-public class FocusSkillAction extends Action {
+public class ActivateSkillAction extends Action {
 
   /**
-   * The actor who performs the focus skill action
+   * The actor who activate the skill
    */
-  private Actor player;
+  private final Actor player;
   /**
-   * The broadsword that has the focus skill
+   * The weapon that has skill to activate
    */
-  private Broadsword broadsword;
+  private final SkillWeapon skillWeapon;
 
   /**
-   * Constructs a new focus skill action with the given actor and weapon.
+   * Constructs a new activate skill action with the given actor and weapon.
    *
-   * @param player     The actor who performs the focus skill action
-   * @param broadsword The broadsword that has the focus skill
+   * @param player      The actor who activate the skill
+   * @param skillWeapon The weapon that has skill to activate
    */
-  public FocusSkillAction(Actor player, Broadsword broadsword) {
+  public ActivateSkillAction(Actor player, SkillWeapon skillWeapon) {
     this.player = player;
-    this.broadsword = broadsword;
+    this.skillWeapon = skillWeapon;
   }
 
   /**
-   * Executes the focus skill action and returns a string that describes what happened.
+   * Executes the activating skill action and returns a string that describes what happened.
    *
    * @param actor The actor who performs the action
    * @param map   The game map that contains the actor
@@ -46,7 +44,7 @@ public class FocusSkillAction extends Action {
    */
   @Override
   public String execute(Actor actor, GameMap map) {
-    int staminaCostPercent = broadsword.activateSkill();
+    int staminaCostPercent = skillWeapon.activateSkill();
     int staminaCost = Math.round(
         player.getAttributeMaximum(BaseActorAttributes.STAMINA) * staminaCostPercent / 100f);
     if (player.getAttribute(BaseActorAttributes.STAMINA) < staminaCost) {
@@ -54,17 +52,17 @@ public class FocusSkillAction extends Action {
     }
     player.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.DECREASE,
         staminaCost);
-    return actor + " takes a deep breath and focuses all their might!!";
+    return actor + " " + skillWeapon.getSkillDescription();
   }
 
   /**
-   * Returns a string that describes the focus skill action in a menu.
+   * Returns a string that describes activating the skill action in a menu.
    *
    * @param actor The actor performing the action.
    * @return the action description to be displayed on the menu
    */
   @Override
   public String menuDescription(Actor actor) {
-    return actor + " activates skill of the broadsword.";
+    return actor + " activates " + this.skillWeapon.getSkill() + " on the " + this.skillWeapon;
   }
 }

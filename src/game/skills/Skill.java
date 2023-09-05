@@ -1,8 +1,7 @@
 package game.skills;
 
 /**
- * An abstract class that represents a skill that can be used by a game character. A skill has four
- * attributes: stamina cost, duration, damage multiplier percentage, and hit rate. Subclasses of
+ * An abstract class that represents a skill that can be used by a game character. Subclasses of
  * this class should implement the specific logic of how the skill is executed and what effects it
  * has.
  *
@@ -10,6 +9,10 @@ package game.skills;
  */
 public abstract class Skill {
 
+  /**
+   * The name of the skill
+   */
+  private final String skillName;
   /**
    * The percentage of stamina required to use the skill
    */
@@ -30,14 +33,17 @@ public abstract class Skill {
   /**
    * Constructs a new skill with the given attributes.
    *
+   * @param skillName                    The name of the skill
    * @param skillStaminaPercent          The percentage of stamina required to use the skill
    * @param skillDuration                The duration of the skill in turns
    * @param skillDamageMultiplierPercent The percentage of damage multiplier increase when using the
    *                                     skill
    * @param hitRate                      The probability of hitting the target when using the skill
    */
-  public Skill(int skillStaminaPercent, int skillDuration, int skillDamageMultiplierPercent,
+  public Skill(String skillName, int skillStaminaPercent, int skillDuration,
+      int skillDamageMultiplierPercent,
       int hitRate) {
+    this.skillName = skillName;
     this.skillStaminaPercent = skillStaminaPercent;
     this.skillDuration = skillDuration;
     this.skillDamageMultiplierPercent = skillDamageMultiplierPercent;
@@ -78,5 +84,18 @@ public abstract class Skill {
    */
   public int getHitRate() {
     return this.hitRate;
+  }
+
+  /**
+   * Return a description of the skill. This is for showing a description after the player activated
+   * the skill
+   *
+   * @return description of the skill
+   */
+  public abstract String skillDescription();
+
+  @Override
+  public String toString() {
+    return this.skillName + " Skill";
   }
 }

@@ -10,10 +10,21 @@ package game.skills;
 public class FocusSkill extends Skill {
 
   /**
-   * Constructs a new focus skill with the default attributes.
+   * Constructs a new skill named "Focus" with the default attributes.
    */
   public FocusSkill() {
-    super(20, 5, 10, 90);
+    super("Focus", 20, 5, 10, 90);
+  }
+
+  /**
+   * Return a description of Focus skill. This is for showing a description after the player
+   * activated this skill
+   *
+   * @return description of the skill
+   */
+  @Override
+  public String skillDescription() {
+    return "takes a deep breath and focuses all their might!!";
   }
 
 }
