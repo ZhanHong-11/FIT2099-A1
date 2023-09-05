@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 
 /**
+ * A class that represents wall.
  * Created by:
  * @author Riordan D. Alfredo
  * Modified by:
