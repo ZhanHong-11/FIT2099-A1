@@ -18,8 +18,8 @@ public class Void extends Ground {
     if (location.containsAnActor()){
       Actor actor = location.getActor();
       if (!actor.hasCapability(Ability.IMMUNE_TO_VOID)){
-        String deadmsg = actor.unconscious(location.map());
-        display.println(deadmsg);
+        String deadMsg = actor.unconscious(location.map());
+        display.println(deadMsg);
       }
     }
   }
