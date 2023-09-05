@@ -52,8 +52,7 @@ public class HealingVial extends Item implements Consumable {
   @Override
   public int consume(Actor actor) {
     int healthRecovery = Math.round(actor.getAttributeMaximum(BaseActorAttributes.HEALTH) / 10f);
-    actor.modifyAttribute(BaseActorAttributes.HEALTH, ActorAttributeOperations.INCREASE,
-        healthRecovery);
+    actor.heal(healthRecovery);
     actor.removeItemFromInventory(this);
     return healthRecovery;
   }
