@@ -42,7 +42,7 @@ public class Player extends Actor {
     }
 
     // Recover the player's stamina
-    tick();
+    tickPlayer();
 
     // return/print the console menu
     display.println(getPlayerAttribute());
@@ -62,9 +62,10 @@ public class Player extends Actor {
   }
 
   /**
-   * Recover player's stamina for 1% every turn.
+   * Inform the player the passage of time.
+   * For example: recover player's stamina for 1% every turn.
    */
-  private void tick() {
+  private void tickPlayer() {
     int staminaRecovery = Math.round(this.getAttributeMaximum(BaseActorAttributes.STAMINA) / 100f);
     this.modifyAttribute(BaseActorAttributes.STAMINA, ActorAttributeOperations.INCREASE,
         staminaRecovery);
